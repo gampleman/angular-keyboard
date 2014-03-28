@@ -1,0 +1,19 @@
+{
+  "name": "angular-keyboard",
+  "version": "1.0.0",
+  "dependencies": {
+    "grunt": "",
+    "grunt-contrib-uglify": "",
+    "grunt-contrib-concat": "",
+    "grunt-karma": "",
+    "karma": "",
+    "karma-jasmine": "",
+    "karma-phantomjs-launcher": "",
+    "karma-junit-reporter": "",
+    "grunt-git-describe": "",
+    "mousetrap": "ccampbell/mousetrap"
+  },
+  "devDependencies": {
+    "grunt-ngdocs": "~0.2.1"
+  }
+}

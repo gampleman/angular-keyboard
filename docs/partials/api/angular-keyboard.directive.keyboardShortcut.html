@@ -1,0 +1,77 @@
+<h1><code ng:non-bindable="">keyboardShortcut</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">angular-keyboard</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>Registers a keyboard shortcut for the default event for the attached element.</p>
+<p>Use this directive to attach a keyboard shortcut to an element that already has some behavior attached to it:
+<pre class="prettyprint linenums">
+&lt;a ng-click="doSomething()" keyboard-shortcut="ctrl+d"&gt;Do Something&lt;/a&gt;
+</pre>
+<p>This will cause the ctrl+d shortcut to call <code>doSomething()</code>.</p>
+<p>There is a variaety of options to customize the behavior.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;keyboard-shortcut
+       keyboard-shortcut="{string}"
+       [keyboard-title="{string}"]
+       [keyboard-trigger="{string}"]
+       [keyboard-action="{function}"]
+       [keyboard-prevent-default="{boolean}"]
+       [private-shortcut="{boolean}"]&gt;
+&lt;/keyboard-shortcut&gt;</pre>
+as attribute<pre class="prettyprint linenums">&lt;ANY keyboard-shortcut="{string}"
+     [keyboard-title="{string}"]
+     [keyboard-trigger="{string}"]
+     [keyboard-action="{function}"]
+     [keyboard-prevent-default="{boolean}"]
+     [private-shortcut="{boolean}"]&gt;
+   ...
+&lt;/ANY&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>keyboardShortcut</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>The shortcut that the user needs to enter. See <a href="#/api/angular-keyboard">Keyboard shortcuts</a> for more details.</p>
+</div></td></tr><tr><td>keyboardTitle <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>A description for the user of what the directive does.
+This is used in conjuction with the <a href="#/api/angular-keyboard.directive:keyboardHelp">keyboardHelp</a> directive. Also if the element does 
+not specify a title, this with the keyboard shortcut will become its <code>title</code>. 
+Defaults to an elements title or text.</p>
+</div></td></tr><tr><td>keyboardTrigger <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>Specify the event that should be run on the keyboard
+shortcut. Defaults to the <code>click</code> event. This means that attaching shortcuts to links and buttons should just work, but saving forms might need a different event.</p>
+</div></td></tr><tr><td>keyboardAction <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>Action to take when the keyboard shortcut is triggered.
+Defaults to triggering an event on the element. This allows to only expose functions through the HTML:
+<pre class="prettyprint linenums">
+&lt;keyboard-shortcut keyboard-shortcut="mod+s" keyboard-action="save()" keyboard-title="Save the document"&gt;
+&lt;/keyboard-shortcut&gt;
+</pre>
+</div></td></tr><tr><td>keyboardPreventDefault <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>Prevents the default keyboard action.</p>
+</div></td></tr><tr><td>privateShortcut <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>Hides the shortcut from the <a href="#/api/angular-keyboard.directive:keyboardHelp">keyboardHelp</a> directive and from exposure in <a href="#/api/angular-keyboard.service:KeyboardShortcuts">KeyboardShortcuts.actions()</a>.</p>
+</div></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><h4 id="example_source">Source</h4>
+<div source-edit="example" source-edit-deps="angular.js example.js" source-edit-html="index.html-4" source-edit-css="" source-edit-js="example.js" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="index.html">
+<pre class="prettyprint linenums" ng-set-text="index.html-4" ng-html-wrap-loaded="example angular.js example.js"></pre>
+<script type="text/ng-template" id="index.html-4">
+ <div ng-controller="ctrl">
+   <h3 id="example_{{state}}">{{state}}</h3>
+   <p>
+     <a ng-click="decrease()" keyboard-shortcut="shift+down" keyboard-title="Decrease the value">&#8595;</a>
+     <a ng-click="increase()" keyboard-shortcut="up" keyboard-prevent-default>&#8593;</a>
+   </p>
+   <p>Use shift down to decrease and up to increase the value.</p>
+ </div>
+ </script>
+</div>
+<div class="tab-pane" title="example.js">
+<pre class="prettyprint linenums" ng-set-text="example.js"></pre>
+<script type="text/ng-template" id="example.js">
+   angular.module('example', ['angular-keyboard']).controller('ctrl', function ($scope) {
+     $scope.state = 0;
+     $scope.increase = function () { $scope.state += 1; };
+     $scope.decrease = function () { $scope.state -= 1; };
+   });
+ </script>
+</div>
+</div><h4 id="example_{{state}}_demo">Demo</h4>
+<div class="well doc-example-live animate-container" ng-embed-app="example" ng-set-html="index.html-4" ng-eval-javascript="example.js"></div>
+</div></div>
+</div>
