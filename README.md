@@ -3,7 +3,7 @@ angular-keyboard
 
 angular-keyboard is a user interface toolkit for adding declaratively keyboard navigation to your web apps.
 
-Please see the docs for more information.
+Please see the [docs](http://code.gampleman.eu/angular-keyboard/) for more information.
 
 Features
 --------
@@ -37,7 +37,7 @@ and this will be transformed into a user visible screen that shows the currently
 Kudos
 -----
 
-The initial code was written by [Jakub Hampl](http://gampleman.eu).
+The initial code was written by [Jakub Hampl](http://gampleman.eu) at [RightScale](http://www.rightscale.com/).
 
 The code relies on the [Mousetrap library](https://github.com/ccampbell/mousetrap) by [Craig Campbell](http://craig.is/).
 
