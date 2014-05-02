@@ -91,6 +91,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     
     grunt.registerTask('default', ['git-describe:run', 'concat:prod', 'concat:minimal', 'uglify']);
-    grunt.registerTask('prod', ['git-describe:run', 'concat:prod', 'concat:minimal', 'uglify', 'docs', 'gh-pages', 'clean']);
+    grunt.registerTask('prod', ['git-describe:run', 'concat:prod', 'concat:minimal', 'uglify', 'ngdocs:all', 'gh-pages', 'clean']);
     grunt.registerTask('show-docs', ['concat:prod', 'concat:minimal', 'ngdocs:all', 'connect'])
 };
