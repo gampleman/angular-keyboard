@@ -1,0 +1,17 @@
+<h1><code ng:non-bindable=""></code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><div class="angular-keyboard-page"><h2 id="angular-keyboard">angular-keyboard</h2>
+<p>This module is designed to make it easy to declare keyboard shortcuts in your app. This overview section goes through some of the basic concepts.</p>
+<h3 id="angular-keyboard_keyboard-shortcuts">Keyboard shortcuts</h3>
+<p>Keyboard shortcuts in angular-keyboard are strings with a particular syntax. Most characters represent themselves, however special characters are represented by names of the relevant key.</p>
+<p>For modifier keys you can use <code>shift</code>, <code>ctrl</code>, <code>alt</code>, <code>option</code>, <code>meta</code>, and <code>command</code>.</p>
+<p>Other special keys are <code>backspace</code>, <code>tab</code>, <code>enter</code>, <code>return</code>, <code>capslock</code>, <code>esc</code>, <code>escape</code>, <code>space</code>, <code>pageup</code>, <code>pagedown</code>, <code>end</code>, <code>home</code>, <code>left</code>, <code>up</code>, <code>right</code>, <code>down</code>, <code>ins</code>, and <code>del</code>.</p>
+<p>Finally the special <code>mod</code> key represents <code>command</code> on OS X and <code>ctrl</code> on Windows and Linux.</p>
+<p>Combinations of keys are created by listing individual keys separated by <code>+</code>. E.g. <code>ctrl+alt+del</code> is the infamous shortcut of pressing simultaneously the control, alt and delete keys.</p>
+<p>Sequences on the other hand require the user to press keys one after the other in short intervals. Sequences are created by separating keys by spaces. So <code>g i</code> would trigger if a user presses the <code>g</code> key and follows by pressing the <code>i</code> key.</p>
+<h3 id="angular-keyboard_reading-the-docs">Reading the docs</h3>
+<p>The most straightforward to use is the <a href="#/api/angular-keyboard.directive:keyboardShortcut">keyboardShortcut</a> directive. This directive allows you to enhance your already existing HTML with keyboard navigation. <a href="#/api/angular-keyboard.directive:keyboardHelp">keyboardHelp</a> shows the feature of showing all accessible keyboard shortcuts. <a href="#/api/angular-keyboard.directive:keyboardSelectable">keyboardSelectable</a> is a more advanced directive that is used for manipulating collections.</p>
+<p>Finally the <a href="#/api/angular-keyboard.service:KeyboardShortcuts">KeyboardShortcuts</a> service will allow to dynamically add keyboard shortcut interactions to your own custom components.</p>
+</div></div>

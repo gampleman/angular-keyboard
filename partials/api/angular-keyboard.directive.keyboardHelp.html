@@ -1,0 +1,92 @@
+<h1><code ng:non-bindable="">keyboardHelp</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">angular-keyboard</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardhelp-page"><p>Displays a formatted table of the currently active keyboard shortcuts. The directives that define these shortcuts need to be loaded in the current view.</p>
+<p>The HTML that this directive generates (for styling purposes) looks like this:
+<pre class="prettyprint linenums">
+&lt;table&gt;
+ &lt;tr&gt;
+   &lt;td&gt;&lt;kbd&gt;&#x2325;&lt;/kbd&gt; &lt;kbd&gt;S&lt;/kbd&gt;&lt;/td&gt;
+   &lt;td&gt;Save the document&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+   &lt;td&gt;&lt;kbd&gt;g&lt;/kbd&gt; &lt;span class="keyboard-separator"&gt;&#8250;&lt;/span&gt; &lt;kbd&gt;i&lt;/kbd&gt;&lt;/td&gt;
+   &lt;td&gt;Go to issues&lt;/td&gt;
+ &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+<p>The keybinding are formatted via the <a href="#/api/angular-keyboard.filter:keybinding">keybinding</a> filter.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;keyboard-help&gt;
+&lt;/keyboard-help&gt;</pre>
+as attribute<pre class="prettyprint linenums">&lt;ANY keyboard-help&gt;
+   ...
+&lt;/ANY&gt;</pre>
+<h3 id="usage_directive-info">Directive info</h3>
+<div class="directive-info"><ul><li>This directive creates new scope.</li>
+</ul>
+</div>
+</div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardhelp-page"><h4 id="example_source">Source</h4>
+<div source-edit="example" source-edit-deps="angular.js example.js" source-edit-html="index.html-0" source-edit-css="style.css-1" source-edit-js="example.js" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="index.html">
+<pre class="prettyprint linenums" ng-set-text="index.html-0" ng-html-wrap-loaded="example angular.js example.js"></pre>
+<script type="text/ng-template" id="index.html-0">
+ <div ng-controller="ctrl">
+   <h3 id="example_{{state}}">{{state}}</h3>
+   <p>
+     <a ng-click="decrease()" keyboard-shortcut="shift+down" 
+        keyboard-title="Decrease the value">&#8595;</a>
+     <a ng-click="increase()" keyboard-shortcut="up" keyboard-prevent-default
+        keyboard-title="Increase the value">&#8593;</a>
+   </p>
+ </div>
+ <keyboard-help></keyboard-help>
+ </script>
+</div>
+<div class="tab-pane" title="style.css">
+<pre class="prettyprint linenums" ng-set-text="style.css-1"></pre>
+<style type="text/css" id="style.css-1">
+   kbd {
+       -moz-border-radius:3px;
+       -moz-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+       -webkit-border-radius:3px;
+       -webkit-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+       background-color:#f7f7f7;
+       border:1px solid #ccc;
+       border-radius:3px;
+       box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+       color:#333;
+       display:inline-block;
+       font-family:Arial,Helvetica,sans-serif;
+       font-size:11px;
+       line-height:1.4;
+       margin:0 .1em;
+       padding:.1em .6em;
+       text-shadow:0 1px 0 #fff;
+   }
+   tr>td:first-child {
+     text-align: right;
+     padding: 5px;
+   }
+ </style>
+</div>
+<div class="tab-pane" title="example.js">
+<pre class="prettyprint linenums" ng-set-text="example.js"></pre>
+<script type="text/ng-template" id="example.js">
+   angular.module('example', ['angular-keyboard']).controller('ctrl', function ($scope) {
+     $scope.state = 0;
+     $scope.increase = function () { $scope.state += 1; };
+     $scope.decrease = function () { $scope.state -= 1; };
+   });
+ </script>
+</div>
+</div><h4 id="example_{{state}}_demo">Demo</h4>
+<div class="well doc-example-live animate-container" ng-embed-app="example" ng-set-html="index.html-0" ng-eval-javascript="example.js"></div>
+</div></div>
+</div>

@@ -1,0 +1,69 @@
+<h1><code ng:non-bindable="">keyboardSelectable</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">angular-keyboard</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardselectable-page"><p>Used for performing keyboard actions on lists of items. It must be specified on the parent element as ng-repeat and exposes another scope variable to it&#39;s elements: <code>keyboardSelected</code> which is a boolean indicating selection on the particular class.</p>
+<p>To trigger keyboard shortcuts only on the selected element, use <a href="#/api/angular-keyboard.directive:keyboardShortcut">keyboardShortcut&#39;s</a> <code>selection-shortcut</code> option to make it work only on the selected element.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as attribute<pre class="prettyprint linenums">&lt;ANY keyboard-selectable="{string}"
+     [selected-class="{string}"]
+     [select-next="{string}"]
+     [select-previous="{string}"]
+     [keyboard-prevent-default="{boolean}"]
+     [private-shortcut="{boolean}"]
+     [selection-action="{string|Function(element, collection) }"]&gt;
+   ...
+&lt;/ANY&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>keyboardSelectable <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardselectable-page"><p>The name of the kind of thing being selected. This, unless <code>privateShortcut</code> is set will cause two entries to be added to the <a href="#/api/angular-keyboard.directive:keyboardHelp">keyboard shorcuts list</a>: &#39;Select next {{keyboardSelectable}}&#39; and &#39;Select previous {{keyboardSelectable}}&#39;.</p>
+</div></td></tr><tr><td>selectedClass <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardselectable-page"><p>The css class used to establish selection. Defaults to <code>keyboard-selected</code>.</p>
+</div></td></tr><tr><td>selectNext <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardselectable-page"><p>The keybinding string that will select the next element in the collection.</p>
+</div></td></tr><tr><td>selectPrevious <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardselectable-page"><p>The keybinding string that will select the previous element in the collection.</p>
+</div></td></tr><tr><td>keyboardPreventDefault <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardselectable-page"><p>Prevents the default keyboard action.</p>
+</div></td></tr><tr><td>privateShortcut <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardselectable-page"><p>Hides the shortcut from the <a href="#/api/angular-keyboard.directive:keyboardHelp">keyboardHelp</a> directive and from exposure in <a href="#/api/angular-keyboard.service:KeyboardShortcuts">KeyboardShortcuts.actions()</a>.</p>
+</div></td></tr><tr><td>selectionAction <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a><a href="" class="label type-hint type-hint-function">Function(element, collection) </a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardselectable-page"><p>This attribute decides what to do on selection. The default value, <code>&#39;class&#39;</code> will remove the <code>selectedClass</code> from all other elements in the <code>collection</code> and add it to the selected <code>element</code>. Another string value <code>&#39;click()&#39;</code> will send a click event on selection to the <code>element</code>. You can specify a css selector between the brackets and the click event will be sent to any children of the <code>element</code> matching the selector (e.g. <code>&#39;click(a.link)&#39;</code>). Finally you may provide a custom function with this functionality.</p>
+</div></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardselectable-page"><h4 id="example_source">Source</h4>
+<div source-edit="example" source-edit-deps="angular.js example.js" source-edit-html="index.html-2" source-edit-css="style.css-3" source-edit-js="example.js" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="index.html">
+<pre class="prettyprint linenums" ng-set-text="index.html-2" ng-html-wrap-loaded="example angular.js example.js"></pre>
+<script type="text/ng-template" id="index.html-2">
+ <div ng-controller="ctrl">
+   <div keyboard-selectable="list item" select-next="down" select-previous="up" keyboard-prevent-default>
+     <!-- start with a selection of 2 -->
+     <div ng-repeat="a in as" ng-class="{'keyboard-selected': $index == 1}">
+       <a keyboard-shortcut="space"  ng-click="tell(a)"
+         selection-shortcut keyboard-title="Select list item">{{a}}</a>
+     </div>
+   </div>
+   <h6 id="example_source_keyboard-shortcuts">Keyboard Shortcuts</h6>
+   <keyboard-help></keyboard-help>
+ </div>
+ </script>
+</div>
+<div class="tab-pane" title="style.css">
+<pre class="prettyprint linenums" ng-set-text="style.css-3"></pre>
+<style type="text/css" id="style.css-3">
+   .keyboard-selected {
+     background: yellow;
+   }
+ </style>
+</div>
+<div class="tab-pane" title="example.js">
+<pre class="prettyprint linenums" ng-set-text="example.js"></pre>
+<script type="text/ng-template" id="example.js">
+   angular.module('example', ['angular-keyboard']).controller('ctrl', function ($scope) {
+     $scope.as = ['1', '2', '3', '4'];
+     $scope.tell = function (el) {
+       alert('You selected number ' + el);
+     };
+   });
+ </script>
+</div>
+</div><h4 id="example_demo">Demo</h4>
+<div class="well doc-example-live animate-container" ng-embed-app="example" ng-set-html="index.html-2" ng-eval-javascript="example.js"></div>
+</div></div>
+</div>
