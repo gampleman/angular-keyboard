@@ -319,32 +319,29 @@
      * @returns {Array}
      */
     function _getMatches(character, modifiers, e, sequenceName, combination, level) {
+      
         var i,
             callback,
             matches = [],
             action = e.type;
-
         // if there are no events related to this keycode
         if (!_callbacks[character]) {
             return [];
         }
-
         // if a modifier key is coming up on its own we should allow it
         if (action == 'keyup' && _isModifier(character)) {
             modifiers = [character];
         }
-
         // loop through all callbacks for the key that was pressed
         // and see if any of them match
         for (i = 0; i < _callbacks[character].length; ++i) {
             callback = _callbacks[character][i];
-
+            
             // if a sequence name is not specified, but this is a sequence at
             // the wrong level then move onto the next match
             if (!sequenceName && callback.seq && _sequenceLevels[callback.seq] != callback.level) {
                 continue;
             }
-
             // if the action we are looking for doesn't match the action we got
             // then we should keep going
             if (action != callback.action) {
@@ -473,7 +470,7 @@
             doNotReset = {},
             maxLevel = 0,
             processedSequenceCallback = false;
-
+        
         // Calculate the maxLevel for sequences so we can only execute the longest callback sequence
         for (i = 0; i < callbacks.length; ++i) {
             if (callbacks[i].seq) {
@@ -792,7 +789,6 @@
      * @returns void
      */
     function _bindSingle(combination, callback, action, sequenceName, level) {
-
         // store a direct mapped reference for use with Mousetrap.trigger
         _directMap[combination + ':' + action] = callback;
 
@@ -1050,7 +1046,9 @@ angular.module('angular-keyboard').filter('keybinding', function ($sce) {
     'right': '&#8594;',
     'up': '&#8593;',
     'down': '&#8595;',
-    'mod': /Mac|iPod|iPhone|iPad/.test(navigator.platform) ? 'meta' : 'ctrl'
+    'meta': '&#x2318;',
+    'mod': /Mac|iPod|iPhone|iPad/.test(navigator.platform) ? '&#x2318;' : 'Ctrl',
+    'ctrl': 'Ctrl'
   };
   
   var utfKeyMap = {
@@ -1067,7 +1065,9 @@ angular.module('angular-keyboard').filter('keybinding', function ($sce) {
     'right': '→',
     'up': '↑',
     'down': '↓',
-    'mod': /Mac|iPod|iPhone|iPad/.test(navigator.platform) ? 'meta' : 'ctrl'
+    'meta': '⌘',
+    'mod': /Mac|iPod|iPhone|iPad/.test(navigator.platform) ? '⌘' : 'Ctrl',
+    'ctrl': 'Ctrl'
   }
   
   return function(input, HTML) {
@@ -1395,7 +1395,7 @@ angular.module('angular-keyboard').directive('keyboardSelectable', function (Key
     </file>
    </example>
  */
-angular.module('angular-keyboard').directive('keyboardShortcut', function (KeyboardShortcuts) {
+angular.module('angular-keyboard').directive('keyboardShortcut', function (KeyboardShortcuts, $filter) {
   return {
     
     restrict: 'AE',
@@ -1444,7 +1444,7 @@ angular.module('angular-keyboard').directive('keyboardShortcut', function (Keybo
       }
 
       if (attrs.keyboardTitle && !element[0].title) {
-        element[0].title = attrs.keyboardTitle + ' ('+attrs.keyboardShortcut+')'
+        element[0].title = attrs.keyboardTitle + ' (' + $filter('keybinding')(attrs.keyboardShortcut) + ')'
       }
       
       var description = attrs.keyboardTitle || inferEventName(element);

@@ -11,7 +11,7 @@ module.exports = function(grunt) {
             prod: {
                 files: {
                     'build/angular-keyboard.min.js': ['build/angular-keyboard.js'],
-                    'build/angular-keyboard-minimal.js' : ['build/anguler-keyboard-minimal.js']
+                    'build/angular-keyboard-minimal.js' : ['build/angular-keyboard-minimal.js']
                 }
             }
         },
