@@ -11,7 +11,7 @@
   <example module="example">
     <file name="index.html">
       {{'command+a' | keybinding}}
-      <div ng-bind-html="'control+alt+delete' | keybinding:true"></div>
+      <div ng-bind-html="'ctrl+alt+delete' | keybinding:true"></div>
       <p>Konami Code: {{'up up down down left right left right b a' | keybinding}}</p>
     </file>
     <file name="style.css">
@@ -63,7 +63,9 @@ angular.module('angular-keyboard').filter('keybinding', function ($sce) {
     'right': '&#8594;',
     'up': '&#8593;',
     'down': '&#8595;',
-    'mod': /Mac|iPod|iPhone|iPad/.test(navigator.platform) ? 'meta' : 'ctrl'
+    'meta': '&#x2318;',
+    'mod': /Mac|iPod|iPhone|iPad/.test(navigator.platform) ? '&#x2318;' : 'Ctrl',
+    'ctrl': 'Ctrl'
   };
   
   var utfKeyMap = {
@@ -80,7 +82,9 @@ angular.module('angular-keyboard').filter('keybinding', function ($sce) {
     'right': '→',
     'up': '↑',
     'down': '↓',
-    'mod': /Mac|iPod|iPhone|iPad/.test(navigator.platform) ? 'meta' : 'ctrl'
+    'meta': '⌘',
+    'mod': /Mac|iPod|iPhone|iPad/.test(navigator.platform) ? '⌘' : 'Ctrl',
+    'ctrl': 'Ctrl'
   }
   
   return function(input, HTML) {

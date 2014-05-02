@@ -6,11 +6,12 @@ module.exports = function(grunt) {
                 
         uglify: {
             options: {
-                banner: "/**\n * angular-keyboard <%=grunt.config('gitdescribe')[1]%>\n * @author Jakub Hampl\n * @license MIT License http://opensource.org/licenses/MIT\n */\n"
+                banner: "/**\n * angular-keyboard <%=grunt.config('gitdescribe')%>\n * @license MIT License http://opensource.org/licenses/MIT\n */\n"
             },
             prod: {
                 files: {
-                    'build/angular-keyboard.min.js': ['build/angular-keyboard.js']
+                    'build/angular-keyboard.min.js': ['build/angular-keyboard.js'],
+                    'build/angular-keyboard-minimal.js' : ['build/anguler-keyboard-minimal.js']
                 }
             }
         },
@@ -18,11 +19,15 @@ module.exports = function(grunt) {
         concat: {
             options: {
                 separator: ';',
-                banner: "/**\n * angular-keyboard <%=(grunt.config('gitdescribe') && grunt.config('gitdescribe')[1])%>\n * @author Jakub Hampl\n * @license MIT License http://opensource.org/licenses/MIT\n */\n"
+                banner: "/**\n * angular-keyboard <%=(grunt.config('gitdescribe') && grunt.config('gitdescribe')[1])%>\n * @license MIT License http://opensource.org/licenses/MIT\n */\n"
             },
             prod: {
                 src: ['node_modules/mousetrap/mousetrap.js', 'src/**/*.js'],
                 dest: 'build/angular-keyboard.js'
+            },
+            minimal: {
+              src: ['node_modules/mousetrap/mousetrap.js', 'src/index.js', 'src/keyboard-shortcuts.js', 'src/keyboard-shortcut.js'],
+              dest: 'build/angular-keyboard-minimal.js'
             }
         },        
         
@@ -31,8 +36,8 @@ module.exports = function(grunt) {
             options: {
                 keepalive: true,
                 configFile: 'karma-angular-1.2.0rc1.conf.js',
-                autoWatch: false,
-                singleRun: true
+                autoWatch: true//,
+                // singleRun: true
             }
           }
             
@@ -47,13 +52,18 @@ module.exports = function(grunt) {
         },
         
         ngdocs: {
-          all: ['src/**/*.js'],
           options: {
             scripts: ['test/lib/jquery.min.js', 'test/lib/angular-1.2.0rc1/angular.js', 'test/lib/angular-1.2.0rc1/angular-animate.js', 'build/angular-keyboard.js'],
             startPage: '/api/angular-keyboard',
             html5Mode: false
+          }, 
+          all: {
+            src: ['src/**/*.js'],
+            title: 'angular-keyboard',
+            api: true
           }
         },
+
         connect: {
           options: {
             keepalive: true
@@ -61,6 +71,14 @@ module.exports = function(grunt) {
           server: {}
         },
         
+        'gh-pages': {
+          options: {
+            base: 'docs'
+          },
+          src: ['**']
+        },
+        
+        clean: ['docs']
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -69,8 +87,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-git-describe');
     grunt.loadNpmTasks('grunt-ngdocs');
     grunt.loadNpmTasks('grunt-contrib-connect');
-        
-    grunt.registerTask('default', ['concat:prod']);
-    grunt.registerTask('prod', [ 'concat:prod', 'uglify']); //'git-describe:run',
-    grunt.registerTask('show-docs', ['concat:prod', 'ngdocs', 'connect'])
+    grunt.loadNpmTasks('grunt-gh-pages');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    
+    grunt.registerTask('default', ['git-describe:run', 'concat:prod', 'concat:minimal', 'uglify']);
+    grunt.registerTask('prod', ['git-describe:run', 'concat:prod', 'concat:minimal', 'uglify', 'docs', 'gh-pages', 'clean']);
+    grunt.registerTask('show-docs', ['concat:prod', 'concat:minimal', 'ngdocs:all', 'connect'])
 };

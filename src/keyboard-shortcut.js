@@ -29,6 +29,8 @@
    </pre>
  * @param {boolean=} keyboardPreventDefault Prevents the default keyboard action.
  * @param {boolean=} privateShortcut Hides the shortcut from the {@link angular-keyboard.directive:keyboardHelp keyboardHelp} directive and from exposure in {@link angular-keyboard.service:KeyboardShortcuts KeyboardShortcuts.actions()}. 
+ * @param {boolean=} shortcutIf The keyboard shortcut is only active if the value of the expression is true. 
+ * @param {boolean=} selectionShortcut Set this if the shortcut should only apply if the element is selected via {@link angular-keyboard.directive:keyboardSelectable keyboardSelectable}.
  * @example
   <example module="example">
     <file name="index.html">
@@ -50,12 +52,14 @@
     </file>
    </example>
  */
-angular.module('angular-keyboard').directive('keyboardShortcut', function (KeyboardShortcuts) {
+angular.module('angular-keyboard').directive('keyboardShortcut', function (KeyboardShortcuts, $filter) {
   return {
     
     restrict: 'AE',
     
-    link: function (scope, element, attrs) {
+    require: '?^keyboardSelectable',
+    
+    link: function (scope, element, attrs, ctrl) {
       // taken from angulartics
       function isCommand(element) {
         return ['a:','button:','button:button','button:submit','input:button','input:submit'].indexOf(
@@ -68,40 +72,75 @@ angular.module('angular-keyboard').directive('keyboardShortcut', function (Keybo
       
       var eventName = attrs.keyboardTrigger || 'click';
       
-      var callback = attrs.keyboardAction || function () {
-        var event; // The custom event that will be created
-
-        if (document.createEvent) {
-          event = document.createEvent("HTMLEvents");
-          event.initEvent(eventName, true, true);
-        } else {
-          event = document.createEventObject();
-          event.eventType = eventName;
-        }
-
-        event.eventName = eventName;
-
-        if (document.createEvent) {
-          element[0].dispatchEvent(event);
-        } else {
-          element[0].fireEvent("on" + event.eventType, event);
-        }
-      };
+      var callback;
       
+      if (attrs.keyboardAction) {
+        callback = function () {
+          scope.$apply(attrs.keyboardAction);
+        };
+      } else {
+        callback = function () {
+          var event; // The custom event that will be created
+
+          if (document.createEvent) {
+           event = document.createEvent("HTMLEvents");
+           event.initEvent(eventName, true, true);
+          } else {
+           event = document.createEventObject();
+           event.eventType = eventName;
+          }
+
+          event.eventName = eventName;
+
+          if (document.createEvent) {
+           element[0].dispatchEvent(event);
+          } else {
+           element[0].fireEvent("on" + event.eventType, event);
+          }
+        };
+      }
+
       if (attrs.keyboardTitle && !element[0].title) {
-        element[0].title = attrs.keyboardTitle + ' ('+attrs.keyboardShortcut+')'
+        element[0].title = attrs.keyboardTitle + ' (' + $filter('keybinding')(attrs.keyboardShortcut) + ')'
       }
       
       var description = attrs.keyboardTitle || inferEventName(element);
       
       var options = {
-        preventDefault: attrs.keyboardPreventDefault === "" || attrs.keyboardPreventDefault === "true" || attrs.keyboardPreventDefault === "keyboard-prevent-default" 
+        preventDefault: attrs.keyboardPreventDefault === "" || attrs.keyboardPreventDefault === "true" || attrs.keyboardPreventDefault === "keyboard-prevent-default",
+        private: attrs.privateShortcut === "" || attrs.privateShortcut === "true" || attrs.privateShortcut === "private-shortcut",
       };
       
-      KeyboardShortcuts.register(description, attrs.keyboardShortcut, callback, options);
+      function register() {
+        if (attrs.selectionShortcut === "" || attrs.selectionShortcut === "true" || attrs.selectionShortcut === "selection-shortcut") {
+          ctrl.register(scope.$index, description, attrs.keyboardShortcut, callback, options);
+        } else {
+           KeyboardShortcuts.register(description, attrs.keyboardShortcut, callback, options);
+        }
+      }
+      
+      function remove() {
+        if (attrs.selectionShortcut === "" || attrs.selectionShortcut === "true" || attrs.selectionShortcut === "selection-shortcut") {
+          ctrl.remove(scope.$index, description, attrs.keyboardShortcut);
+        } else {
+           KeyboardShortcuts.remove(description, attrs.keyboardShortcut);
+        }
+      }
+      
+      if (attrs.shortcutIf) {
+        scope.$watch(attrs.shortcutIf, function (val) {
+          if (val) {
+            register();
+          } else {
+            remove();
+          }
+        })
+      } else {
+        register();
+      }
       
       scope.$on('$destroy', function () {
-        KeyboardShortcuts.remove(description, attrs.keyboardShortcut);
+        remove();
       });
     }
   };
