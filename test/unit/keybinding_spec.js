@@ -3,7 +3,7 @@
 describe("keyboard-shortcut", function () {
   var keybinding;
   beforeEach(angular.mock.module('angular-keyboard'));
-  
+
   beforeEach(inject(function ($filter) {
     keybinding = $filter('keybinding');
   }));
@@ -12,15 +12,15 @@ describe("keyboard-shortcut", function () {
     it('uppercases simple letters', function () {
       expect(keybinding('a')).toEqual('A');
     });
-  
+
     it('formats combos', function () {
       expect(keybinding('a+b')).toEqual('AB');
     });
-    
+
     it('formats sequences', function () {
       expect(keybinding('a b')).toEqual('A › B');
     });
-    
+
     it('formats modifiers', function () {
       expect(keybinding('ctrl')).toEqual('Ctrl');
       expect(keybinding('alt')).toEqual('⌥');
@@ -29,7 +29,7 @@ describe("keyboard-shortcut", function () {
       expect(keybinding('shift')).toEqual('⇧');
     });
   });
-  
+
   describe('html mode', function () {
     it('uppercases simple letters', function () {
       expect(keybinding('a', true).$$unwrapTrustedValue()).toEqual('<kbd>A</kbd>');

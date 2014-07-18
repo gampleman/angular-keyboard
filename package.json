@@ -2,6 +2,9 @@
   "name": "angular-keyboard",
   "version": "0.1.0",
   "dependencies": {
+    "mousetrap": "ccampbell/mousetrap"
+  },
+  "devDependencies": {
     "grunt": "",
     "grunt-contrib-uglify": "",
     "grunt-contrib-concat": "",
@@ -11,11 +14,12 @@
     "karma-phantomjs-launcher": "",
     "karma-junit-reporter": "",
     "grunt-git-describe": "",
-    "mousetrap": "ccampbell/mousetrap"
-  },
-  "devDependencies": {
     "grunt-ngdocs": "~0.2.1",
     "grunt-gh-pages": "~0.9.1",
-    "grunt-contrib-clean": "~0.5.0"
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-cli": "~0.1.13"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/grunt karma:once"
   }
 }
