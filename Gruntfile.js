@@ -1,9 +1,9 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
-        
+
         pkg: grunt.file.readJSON('package.json'),
-                
+
         uglify: {
             options: {
                 banner: "/**\n * angular-keyboard <%=grunt.config('gitdescribe')%>\n * @license MIT License http://opensource.org/licenses/MIT\n */\n"
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        
+
         concat: {
             options: {
                 separator: ';',
@@ -29,8 +29,8 @@ module.exports = function(grunt) {
               src: ['node_modules/mousetrap/mousetrap.js', 'src/index.js', 'src/keyboard-shortcuts.js', 'src/keyboard-shortcut.js'],
               dest: 'build/angular-keyboard-minimal.js'
             }
-        },        
-        
+        },
+
         karma: {
           main: {
             options: {
@@ -39,8 +39,14 @@ module.exports = function(grunt) {
                 autoWatch: true//,
                 // singleRun: true
             }
+          },
+          once: {
+            options: {
+                configFile: 'karma-angular-1.2.0rc1.conf.js',
+                singleRun: true
+            }
           }
-            
+
         },
 
         "git-describe": {
@@ -50,13 +56,13 @@ module.exports = function(grunt) {
                 }
             }
         },
-        
+
         ngdocs: {
           options: {
             scripts: ['test/lib/jquery.min.js', 'test/lib/angular-1.2.0rc1/angular.js', 'test/lib/angular-1.2.0rc1/angular-animate.js', 'build/angular-keyboard.js'],
             startPage: '/api/angular-keyboard',
             html5Mode: false
-          }, 
+          },
           all: {
             src: ['src/**/*.js'],
             title: 'angular-keyboard',
@@ -70,14 +76,14 @@ module.exports = function(grunt) {
           },
           server: {}
         },
-        
+
         'gh-pages': {
           options: {
             base: 'docs'
           },
           src: ['**']
         },
-        
+
         clean: ['docs']
     });
 
@@ -89,7 +95,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-gh-pages');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    
+
     grunt.registerTask('default', ['git-describe:run', 'concat:prod', 'concat:minimal', 'uglify']);
     grunt.registerTask('prod', ['git-describe:run', 'concat:prod', 'concat:minimal', 'uglify', 'ngdocs:all', 'gh-pages', 'clean']);
     grunt.registerTask('show-docs', ['concat:prod', 'concat:minimal', 'ngdocs:all', 'connect'])
