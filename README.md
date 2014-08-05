@@ -37,9 +37,11 @@ and this will be transformed into a user visible screen that shows the currently
 Kudos
 -----
 
-The initial code was written by [Jakub Hampl](http://gampleman.eu) at [RightScale](http://www.rightscale.com/).
-
 The code relies on the [Mousetrap library](https://github.com/ccampbell/mousetrap) by [Craig Campbell](http://craig.is/).
+
+Maintained By
+-------------
+[Jakub Hampl](https://github.com/gampleman) - http://gampleman.eu
 
 
 License
