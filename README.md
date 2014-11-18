@@ -1,6 +1,8 @@
 angular-keyboard
 ================
 
+[![Build Status](https://travis-ci.org/gampleman/angular-keyboard.svg?branch=master)](https://travis-ci.org/gampleman/angular-keyboard)
+
 angular-keyboard is a user interface toolkit for adding declaratively keyboard navigation to your web apps.
 
 Please see the [docs](http://code.gampleman.eu/angular-keyboard/) for more information.
