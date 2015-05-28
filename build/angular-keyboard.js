@@ -319,29 +319,32 @@
      * @returns {Array}
      */
     function _getMatches(character, modifiers, e, sequenceName, combination, level) {
-      
         var i,
             callback,
             matches = [],
             action = e.type;
+
         // if there are no events related to this keycode
         if (!_callbacks[character]) {
             return [];
         }
+
         // if a modifier key is coming up on its own we should allow it
         if (action == 'keyup' && _isModifier(character)) {
             modifiers = [character];
         }
+
         // loop through all callbacks for the key that was pressed
         // and see if any of them match
         for (i = 0; i < _callbacks[character].length; ++i) {
             callback = _callbacks[character][i];
-            
+
             // if a sequence name is not specified, but this is a sequence at
             // the wrong level then move onto the next match
             if (!sequenceName && callback.seq && _sequenceLevels[callback.seq] != callback.level) {
                 continue;
             }
+
             // if the action we are looking for doesn't match the action we got
             // then we should keep going
             if (action != callback.action) {
@@ -470,7 +473,7 @@
             doNotReset = {},
             maxLevel = 0,
             processedSequenceCallback = false;
-        
+
         // Calculate the maxLevel for sequences so we can only execute the longest callback sequence
         for (i = 0; i < callbacks.length; ++i) {
             if (callbacks[i].seq) {
@@ -789,6 +792,7 @@
      * @returns void
      */
     function _bindSingle(combination, callback, action, sequenceName, level) {
+
         // store a direct mapped reference for use with Mousetrap.trigger
         _directMap[combination + ':' + action] = callback;
 
@@ -1356,23 +1360,24 @@ angular.module('angular-keyboard').directive('keyboardSelectable', function (Key
    This will cause the ctrl+d shortcut to call `doSomething()`.
 
    There is a variaety of options to customize the behavior.
-   
+
  * @param {string} keyboardShortcut The shortcut that the user needs to enter. See {@link angular-keyboard Keyboard shortcuts} for more details.
- * @param {string=} keyboardTitle A description for the user of what the directive does. 
-   This is used in conjuction with the {@link angular-keyboard.directive:keyboardHelp keyboardHelp} directive. Also if the element does 
-   not specify a title, this with the keyboard shortcut will become its `title`. 
+ * @param {string=} keyboardTitle A description for the user of what the directive does.
+   This is used in conjuction with the {@link angular-keyboard.directive:keyboardHelp keyboardHelp} directive. Also if the element does
+   not specify a title, this with the keyboard shortcut will become its `title`.
    Defaults to an elements title or text.
- * @param {string=} keyboardTrigger Specify the event that should be run on the keyboard 
+ * @param {string=} keyboardCategory  If used, this will group shortcuts into categories in the {@link angular-keyboard.directive:keyboardHelp keyboardHelp} directive.
+ * @param {string=} keyboardTrigger Specify the event that should be run on the keyboard
    shortcut. Defaults to the `click` event. This means that attaching shortcuts to links and buttons should just work, but saving forms might need a different event.
- * @param {function=} keyboardAction Action to take when the keyboard shortcut is triggered. 
+ * @param {function=} keyboardAction Action to take when the keyboard shortcut is triggered.
    Defaults to triggering an event on the element. This allows to only expose functions through the HTML:
    <pre>
    <keyboard-shortcut keyboard-shortcut="mod+s" keyboard-action="save()" keyboard-title="Save the document">
    </keyboard-shortcut>
    </pre>
  * @param {boolean=} keyboardPreventDefault Prevents the default keyboard action.
- * @param {boolean=} privateShortcut Hides the shortcut from the {@link angular-keyboard.directive:keyboardHelp keyboardHelp} directive and from exposure in {@link angular-keyboard.service:KeyboardShortcuts KeyboardShortcuts.actions()}. 
- * @param {boolean=} shortcutIf The keyboard shortcut is only active if the value of the expression is true. 
+ * @param {boolean=} privateShortcut Hides the shortcut from the {@link angular-keyboard.directive:keyboardHelp keyboardHelp} directive and from exposure in {@link angular-keyboard.service:KeyboardShortcuts KeyboardShortcuts.actions()}.
+ * @param {boolean=} shortcutIf The keyboard shortcut is only active if the value of the expression is true.
  * @param {boolean=} selectionShortcut Set this if the shortcut should only apply if the element is selected via {@link angular-keyboard.directive:keyboardSelectable keyboardSelectable}.
  * @example
   <example module="example">
@@ -1397,11 +1402,11 @@ angular.module('angular-keyboard').directive('keyboardSelectable', function (Key
  */
 angular.module('angular-keyboard').directive('keyboardShortcut', function (KeyboardShortcuts, $filter) {
   return {
-    
+
     restrict: 'AE',
-    
+
     require: '?^keyboardSelectable',
-    
+
     link: function (scope, element, attrs, ctrl) {
       // taken from angulartics
       function isCommand(element) {
@@ -1412,11 +1417,11 @@ angular.module('angular-keyboard').directive('keyboardShortcut', function (Keybo
       function inferEventName(element) {
         return element[0].title || element.text() || element.val() || element[0].id || element[0].name || element[0].tagName || element[0].innerText || element[0].value;
       }
-      
+
       var eventName = attrs.keyboardTrigger || 'click';
-      
+
       var callback;
-      
+
       if (attrs.keyboardAction) {
         callback = function () {
           scope.$apply(attrs.keyboardAction);
@@ -1446,22 +1451,26 @@ angular.module('angular-keyboard').directive('keyboardShortcut', function (Keybo
       if (attrs.keyboardTitle && !element[0].title) {
         element[0].title = attrs.keyboardTitle + ' (' + $filter('keybinding')(attrs.keyboardShortcut) + ')'
       }
-      
+
       var description = attrs.keyboardTitle || inferEventName(element);
-      
+
       var options = {
         preventDefault: attrs.keyboardPreventDefault === "" || attrs.keyboardPreventDefault === "true" || attrs.keyboardPreventDefault === "keyboard-prevent-default",
         private: attrs.privateShortcut === "" || attrs.privateShortcut === "true" || attrs.privateShortcut === "private-shortcut",
       };
-      
+
+      if ('keyboardCategory' in attrs) {
+        options.category = attrs.keyboardCategory;
+      }
+
       function register() {
         if (attrs.selectionShortcut === "" || attrs.selectionShortcut === "true" || attrs.selectionShortcut === "selection-shortcut") {
           ctrl.register(scope.$index, description, attrs.keyboardShortcut, callback, options);
         } else {
-           KeyboardShortcuts.register(description, attrs.keyboardShortcut, callback, options);
+          KeyboardShortcuts.register(description, attrs.keyboardShortcut, callback, options);
         }
       }
-      
+
       function remove() {
         if (attrs.selectionShortcut === "" || attrs.selectionShortcut === "true" || attrs.selectionShortcut === "selection-shortcut") {
           ctrl.remove(scope.$index, description, attrs.keyboardShortcut);
@@ -1469,7 +1478,7 @@ angular.module('angular-keyboard').directive('keyboardShortcut', function (Keybo
            KeyboardShortcuts.remove(description, attrs.keyboardShortcut);
         }
       }
-      
+
       if (attrs.shortcutIf) {
         scope.$watch(attrs.shortcutIf, function (val) {
           if (val) {
@@ -1481,13 +1490,14 @@ angular.module('angular-keyboard').directive('keyboardShortcut', function (Keybo
       } else {
         register();
       }
-      
+
       scope.$on('$destroy', function () {
         remove();
       });
     }
   };
-});;/**
+});
+;/**
  * @ngdoc object
  * @name angular-keyboard.service:KeyboardShortcuts
  * @description

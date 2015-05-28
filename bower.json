@@ -1,11 +1,22 @@
 {
   "name": "angular-keyboard",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "build/angular-keyboard.min.js",
+  "dependencies": {
+    "angular": "~1.3"
+  },
+  "devDependencies": {
+    "jquery": "~1",
+    "angular-mocks": "~1.3",
+    "angular-animate": "~1.3"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "test"
+    "test",
+    "src",
+    "Gruntfile.js",
+    "karma*.js"
   ]
 }

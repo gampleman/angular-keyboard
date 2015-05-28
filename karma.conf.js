@@ -6,12 +6,11 @@ module.exports = function(config) {
         frameworks: ["jasmine"],
 
         files: [
-            'test/lib/jquery.min.js',
+            'bower_components/jquery/dist/jquery.js',
             'test/lib/helpers.js',
-            'test/lib/angular-1.2.0rc1/angular.js',
-            'test/lib/angular-1.2.0rc1/angular-*.js',
+            'bower_components/angular/angular.js',
+            'bower_components/angular-mocks/angular-mocks.js',
             'node_modules/Mousetrap/mousetrap.js',
-            'test/lib/angular-1.2.0rc1/init.js',
             'src/**/*.js',
             'test/unit/**/*.js'
         ],

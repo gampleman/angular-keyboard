@@ -1,4 +1,6 @@
 node_modules
+bower_components
+docs
 dist
 .tmp
 .sass-cache

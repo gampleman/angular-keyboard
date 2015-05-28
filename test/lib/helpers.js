@@ -1,54 +1,3 @@
-// beforeEach(function() {
-//     this.addMatchers({
-//         toHaveClass : function(cls) {
-//             var notText = this.isNot ? " not" : "";
-//             this.message = function() {
-//                 return "Expected '" + angular.mock.dump(this.actual) + "'" +
-//                         notText + " to have class '" + cls + "'.";
-//             };
-// 
-//             return this.actual.hasClass(cls);
-//         },
-//         
-//         toBeVisible : function() {
-//             var notText = this.isNot ? " not" : "";
-//             this.message = function() {
-//                 return "Expected '" + angular.mock.dump(this.actual) + "'" +
-//                         notText + " to be visible.";
-//             };
-// 
-//             return this.actual.css('display') != 'none';
-//         },
-//         
-//         toHaveBeenCalledWithContain : function(obj) {
-// 
-//             if (!jasmine.isSpy(this.actual)) {
-//                 throw new Error('Expected a spy, but got ' + jasmine.pp(this.actual) + '.');
-//             } 
-//             
-//             this.message = function() {
-//                 var invertedMessage = "Expected spy " + this.actual.identity + " not to have been called with contain " + jasmine.pp(obj) + " but it was.";
-//                 var positiveMessage = "";
-//                 if (this.actual.callCount === 0) {
-//                   positiveMessage = "Expected spy " + this.actual.identity + " to have been called with contain " + jasmine.pp(obj) + " but it was never called.";
-//                 } else {
-//                   positiveMessage = "Expected spy " + this.actual.identity + " to have been called with contain " + jasmine.pp(obj) + " but actual calls were " + jasmine.pp(this.actual.argsForCall).replace(/^\[ | \]$/g, '');
-//                 }
-//                 return [positiveMessage, invertedMessage];
-//             };
-//             
-//             if(!this.actual.wasCalled)
-//                 return false;
-//               
-//             var result = true;
-//             for(var key in obj) {
-//                 result = result && this.env.equals_(this.actual.argsForCall[0][0][key], obj[key]);
-//             }
-//             
-//             return result;
-//         }
-//     });
-// });
 var triggerKeyEvent = function (code) {
   var customEvent;
   var type = 'keypress';
@@ -77,12 +26,12 @@ var triggerKeyEvent = function (code) {
        */
       //TODO: Decipher between Firefox's implementation and a correct one.
       customEvent.initKeyEvent(type, bubbles, cancelable, view, ctrlKey,
-          altKey, shiftKey, metaKey, keyCode, charCode);       
+          altKey, shiftKey, metaKey, keyCode, charCode);
 
   } catch (ex /*:Error*/){
 
       /*
-       * If it got here, that means key events aren't officially supported. 
+       * If it got here, that means key events aren't officially supported.
        * Safari/WebKit is a real problem now. WebKit 522 won't let you
        * set keyCode, charCode, or other properties if you use a
        * UIEvent, so we first must try to create a generic event. The
@@ -113,7 +62,7 @@ var triggerKeyEvent = function (code) {
           customEvent.keyCode = keyCode;
           customEvent.charCode = charCode;
 
-      }          
+      }
 
   }
 

@@ -120,7 +120,7 @@ angular.module('angular-keyboard').directive('keyboardShortcut', function (Keybo
         if (attrs.selectionShortcut === "" || attrs.selectionShortcut === "true" || attrs.selectionShortcut === "selection-shortcut") {
           ctrl.register(scope.$index, description, attrs.keyboardShortcut, callback, options);
         } else {
-           KeyboardShortcuts.register(description, attrs.keyboardShortcut, callback, options);
+          KeyboardShortcuts.register(description, attrs.keyboardShortcut, callback, options);
         }
       }
 
