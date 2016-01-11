@@ -1,6 +1,6 @@
 {
   "name": "angular-keyboard",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "build/angular-keyboard.min.js",
   "dependencies": {
     "angular": "^1.3"

@@ -11,7 +11,7 @@ module.exports = function(grunt) {
       prod: {
         files: {
           'build/angular-keyboard.min.js': ['build/angular-keyboard.js'],
-          'build/angular-keyboard-minimal.js' : ['build/angular-keyboard-minimal.js']
+          'build/angular-keyboard-minimal.min.js' : ['build/angular-keyboard-minimal.js']
         }
       }
     },
@@ -58,14 +58,26 @@ module.exports = function(grunt) {
 
     ngdocs: {
       options: {
-      scripts: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/angular/angular.min.js', 'bower_components/angular-animate/angular-animate.min.js', 'build/angular-keyboard.js'],
-      startPage: '/api/angular-keyboard',
-      html5Mode: false
+        scripts: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/angular/angular.min.js', 'bower_components/angular-animate/angular-animate.min.js', 'build/angular-keyboard.js'],
+        startPage: '/api/angular-keyboard',
+        html5Mode: false
       },
       all: {
-      src: ['src/**/*.js'],
-      title: 'angular-keyboard',
-      api: true
+        src: ['src/**/*.js'],
+        title: 'angular-keyboard',
+        api: true
+      }
+    },
+
+    ngAnnotate: {
+      options: {
+        singleQuotes: true
+      },
+      prod: {
+        files: {
+          'build/angular-keyboard.js': ['build/angular-keyboard.js'],
+          'build/angular-keyboard-minimal.js' : ['build/angular-keyboard-minimal.js']
+        }
       }
     },
 
@@ -94,8 +106,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-gh-pages');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-ng-annotate');
 
-  grunt.registerTask('default', ['git-describe:run', 'concat:prod', 'concat:minimal', 'uglify']);
-  grunt.registerTask('prod', ['git-describe:run', 'concat:prod', 'concat:minimal', 'uglify', 'ngdocs:all', 'gh-pages', 'clean']);
+  grunt.registerTask('default', ['git-describe:run', 'concat:prod', 'concat:minimal', 'ngAnnotate:prod', 'uglify']);
+  grunt.registerTask('prod', ['git-describe:run', 'concat:prod', 'concat:minimal', 'ngAnnotate:prod', 'uglify', 'ngdocs:all', 'gh-pages', 'clean']);
   grunt.registerTask('show-docs', ['concat:prod', 'concat:minimal', 'ngdocs:all', 'connect'])
 };

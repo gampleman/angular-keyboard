@@ -1041,7 +1041,7 @@ angular.module('angular-keyboard', ['ng']);
     </file>
    </example>
  */
-angular.module('angular-keyboard').service('KeyboardShortcuts', function ($timeout) {
+angular.module('angular-keyboard').service('KeyboardShortcuts', ['$timeout', function ($timeout) {
   var publicActions = [];
   var actions = [];
   
@@ -1149,7 +1149,7 @@ angular.module('angular-keyboard').service('KeyboardShortcuts', function ($timeo
       return publicActions;
     }
   }
-});;/**
+}]);;/**
  * @ngdoc directive
  * @name angular-keyboard.directive:keyboardShortcut
  * @restrict EA
@@ -1204,7 +1204,7 @@ angular.module('angular-keyboard').service('KeyboardShortcuts', function ($timeo
     </file>
    </example>
  */
-angular.module('angular-keyboard').directive('keyboardShortcut', function (KeyboardShortcuts, $filter) {
+angular.module('angular-keyboard').directive('keyboardShortcut', ['KeyboardShortcuts', '$filter', function (KeyboardShortcuts, $filter) {
   return {
 
     restrict: 'AE',
@@ -1300,4 +1300,4 @@ angular.module('angular-keyboard').directive('keyboardShortcut', function (Keybo
       });
     }
   };
-});
+}]);

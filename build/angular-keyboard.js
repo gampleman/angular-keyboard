@@ -1026,7 +1026,7 @@ angular.module('angular-keyboard', ['ng']);
     </file>
    </example>
  */
-angular.module('angular-keyboard').filter('keybinding', function ($sce) {
+angular.module('angular-keyboard').filter('keybinding', ['$sce', function ($sce) {
 
   var map = function (arr, cb) {
     var newArr = [];
@@ -1091,7 +1091,7 @@ angular.module('angular-keyboard').filter('keybinding', function ($sce) {
       }).join(' › ');
     }
   };
-});;/**
+}]);;/**
  * @ngdoc directive
  * @name angular-keyboard.directive:keyboardHelp
  * @restrict EA
@@ -1161,7 +1161,7 @@ angular.module('angular-keyboard').filter('keybinding', function ($sce) {
     </file>
    </example>
  */
-angular.module('angular-keyboard').directive('keyboardHelp', function (KeyboardShortcuts) {
+angular.module('angular-keyboard').directive('keyboardHelp', ['KeyboardShortcuts', function (KeyboardShortcuts) {
   
   return {
     
@@ -1186,7 +1186,7 @@ angular.module('angular-keyboard').directive('keyboardHelp', function (KeyboardS
     
   }
   
-});;/**
+}]);;/**
  * @ngdoc directive
  * @name angular-keyboard.directive:keyboardSelectable
  * @restrict A
@@ -1231,7 +1231,7 @@ To trigger keyboard shortcuts only on the selected element, use {@link angular-k
     </file>
    </example>
  */
-angular.module('angular-keyboard').directive('keyboardSelectable', function (KeyboardShortcuts, $timeout) {
+angular.module('angular-keyboard').directive('keyboardSelectable', ['KeyboardShortcuts', '$timeout', function (KeyboardShortcuts, $timeout) {
   var selectedIndex = 0
     , elements = []
     , selectedClass
@@ -1345,7 +1345,7 @@ angular.module('angular-keyboard').directive('keyboardSelectable', function (Key
     
   };
   
-});;/**
+}]);;/**
  * @ngdoc directive
  * @name angular-keyboard.directive:keyboardShortcut
  * @restrict EA
@@ -1400,7 +1400,7 @@ angular.module('angular-keyboard').directive('keyboardSelectable', function (Key
     </file>
    </example>
  */
-angular.module('angular-keyboard').directive('keyboardShortcut', function (KeyboardShortcuts, $filter) {
+angular.module('angular-keyboard').directive('keyboardShortcut', ['KeyboardShortcuts', '$filter', function (KeyboardShortcuts, $filter) {
   return {
 
     restrict: 'AE',
@@ -1496,7 +1496,7 @@ angular.module('angular-keyboard').directive('keyboardShortcut', function (Keybo
       });
     }
   };
-});
+}]);
 ;/**
  * @ngdoc object
  * @name angular-keyboard.service:KeyboardShortcuts
@@ -1553,7 +1553,7 @@ angular.module('angular-keyboard').directive('keyboardShortcut', function (Keybo
     </file>
    </example>
  */
-angular.module('angular-keyboard').service('KeyboardShortcuts', function ($timeout) {
+angular.module('angular-keyboard').service('KeyboardShortcuts', ['$timeout', function ($timeout) {
   var publicActions = [];
   var actions = [];
   
@@ -1661,4 +1661,4 @@ angular.module('angular-keyboard').service('KeyboardShortcuts', function ($timeo
       return publicActions;
     }
   }
-});
+}]);

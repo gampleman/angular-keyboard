@@ -1,23 +1,24 @@
 {
   "name": "angular-keyboard",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "dependencies": {
     "mousetrap": "ccampbell/mousetrap#1.4.6"
   },
   "devDependencies": {
-    "grunt-ngdocs": "~0.2.1",
-    "grunt-gh-pages": "~0.9.1",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-cli": "~0.1.13",
-    "karma-jasmine": "~0.1.5",
-    "grunt-contrib-concat": "~0.4.0",
-    "grunt-git-describe": "~2.3.2",
-    "karma-junit-reporter": "~0.2.2",
-    "grunt-karma": "~0.8.3",
     "grunt": "~0.4.5",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.4.0",
     "grunt-contrib-uglify": "~0.5.0",
-    "karma-phantomjs-launcher": "~0.1.4",
-    "karma": "~0.12.17"
+    "grunt-gh-pages": "~0.9.1",
+    "grunt-git-describe": "~2.3.2",
+    "grunt-karma": "~0.8.3",
+    "grunt-ng-annotate": "^1.0.1",
+    "grunt-ngdocs": "~0.2.1",
+    "karma": "~0.12.17",
+    "karma-jasmine": "~0.1.5",
+    "karma-junit-reporter": "~0.2.2",
+    "karma-phantomjs-launcher": "~0.1.4"
   },
   "scripts": {
     "test": "node_modules/.bin/grunt karma:once"
