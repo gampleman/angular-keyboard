@@ -16,6 +16,7 @@
 <div class="usage">as element:<pre class="prettyprint linenums">&lt;keyboard-shortcut
        keyboard-shortcut="{string}"
        [keyboard-title="{string}"]
+       [keyboard-category="{string}"]
        [keyboard-trigger="{string}"]
        [keyboard-action="{function}"]
        [keyboard-prevent-default="{boolean}"]
@@ -25,6 +26,7 @@
 &lt;/keyboard-shortcut&gt;</pre>
 as attribute<pre class="prettyprint linenums">&lt;ANY keyboard-shortcut="{string}"
      [keyboard-title="{string}"]
+     [keyboard-category="{string}"]
      [keyboard-trigger="{string}"]
      [keyboard-action="{function}"]
      [keyboard-prevent-default="{boolean}"]
@@ -35,9 +37,10 @@ as attribute<pre class="prettyprint linenums">&lt;ANY keyboard-shortcut="{string
 &lt;/ANY&gt;</pre>
 <h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>keyboardShortcut</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>The shortcut that the user needs to enter. See <a href="#/api/angular-keyboard">Keyboard shortcuts</a> for more details.</p>
 </div></td></tr><tr><td>keyboardTitle <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>A description for the user of what the directive does.
-This is used in conjuction with the <a href="#/api/angular-keyboard.directive:keyboardHelp">keyboardHelp</a> directive. Also if the element does 
-not specify a title, this with the keyboard shortcut will become its <code>title</code>. 
+This is used in conjuction with the <a href="#/api/angular-keyboard.directive:keyboardHelp">keyboardHelp</a> directive. Also if the element does
+not specify a title, this with the keyboard shortcut will become its <code>title</code>.
 Defaults to an elements title or text.</p>
+</div></td></tr><tr><td>keyboardCategory <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>If used, this will group shortcuts into categories in the <a href="#/api/angular-keyboard.directive:keyboardHelp">keyboardHelp</a> directive.</p>
 </div></td></tr><tr><td>keyboardTrigger <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>Specify the event that should be run on the keyboard
 shortcut. Defaults to the <code>click</code> event. This means that attaching shortcuts to links and buttons should just work, but saving forms might need a different event.</p>
 </div></td></tr><tr><td>keyboardAction <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="angular-keyboard-directive-page angular-keyboard-directive-keyboardshortcut-page"><p>Action to take when the keyboard shortcut is triggered.

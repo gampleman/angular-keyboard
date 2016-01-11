@@ -37,7 +37,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "angular-keyboard",
       "shortDescription": "Registers a keyboard shortcut for the default event for the attached element.",
-      "keywords": "$scope action actions active allows angular angular-keyboard api apply attach attached attaching behavior buttons call click conjuction controller ctrl customize decrease default defaults description details directive document dosomething ea element elements enter event example expose exposure expression forms function functions hides html increase js keyboard keyboard-action keyboard-prevent-default keyboard-shortcut keyboard-title keyboardaction keyboardhelp keyboardpreventdefault keyboardselectable keyboardshortcut keyboardshortcuts keyboardtitle keyboardtrigger links mod module ng-click ng-controller options prevents privateshortcut registers save saving selected selectionshortcut service set shift shortcut shortcutif shortcuts text title triggered triggering true user variaety work"
+      "keywords": "$scope action actions active allows angular angular-keyboard api apply attach attached attaching behavior buttons call categories click conjuction controller ctrl customize decrease default defaults description details directive document dosomething ea element elements enter event example expose exposure expression forms function functions group hides html increase js keyboard keyboard-action keyboard-prevent-default keyboard-shortcut keyboard-title keyboardaction keyboardcategory keyboardhelp keyboardpreventdefault keyboardselectable keyboardshortcut keyboardshortcuts keyboardtitle keyboardtrigger links mod module ng-click ng-controller options prevents privateshortcut registers save saving selected selectionshortcut service set shift shortcut shortcutif shortcuts text title triggered triggering true user variaety work"
     },
     {
       "section": "api",
@@ -65,8 +65,9 @@ NG_DOCS={
   "startPage": "/api/angular-keyboard",
   "scripts": [
     "jquery.min.js",
-    "angular.js",
-    "angular-animate.js",
+    "angular.min.js",
+    "angular-animate.min.js",
     "angular-keyboard.js"
-  ]
+  ],
+  "editExample": true
 };
