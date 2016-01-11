@@ -7,6 +7,17 @@ angular-keyboard is a user interface toolkit for adding declaratively keyboard n
 
 Please see the [docs](http://code.gampleman.eu/angular-keyboard/) for more information.
 
+Install
+-------
+
+Using bower:
+
+```
+bower install --save angular-keyboard-shortcuts
+```
+
+(The name is `angular-keyboard-shortcuts`, since `angular-keyboard` is taken by another project).
+
 Features
 --------
 
@@ -28,7 +39,7 @@ There is a number of ways to use angular-keyboard, but the simplest is probably 
 
 If the user presses `control ,`, the `goToPreferences` function will be invoked.
 
-You can add 
+You can add
 
 ~~~html
 <keyboard-help></keyboard-help>
